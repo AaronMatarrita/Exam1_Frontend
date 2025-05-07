@@ -1,22 +1,26 @@
 package com.moviles.exam.pages.course
 
+import CourseCard
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import com.moviles.exam.components.CourseCard
-import com.moviles.exam.models.Course
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import com.moviles.exam.viewmodel.CourseViewModel
 
 @Composable
-fun CourseListScreen(modifier: Modifier = Modifier) {
-    val mockCourses = listOf(
-        Course(1, "Matemáticas", "Álgebra y geometría", "", "Lunes 8am", "Carlos Pérez"),
-        Course(2, "Programación", "Kotlin desde cero", "", "Martes 10am", "Ana Torres"),
-        Course(3, "Historia", "Historia Universal", "", "Viernes 2pm", "Luis Mora"),
-    )
+fun CourseListScreen(
+    navController: NavHostController,
+    modifier: Modifier = Modifier,
+    courseViewModel: CourseViewModel = viewModel()
+) {
+    val uiState by courseViewModel.uiState.collectAsState()
 
     Scaffold(
         floatingActionButton = {
@@ -26,13 +30,21 @@ fun CourseListScreen(modifier: Modifier = Modifier) {
         },
         modifier = modifier
     ) { innerPadding ->
-        LazyColumn(contentPadding = innerPadding) {
-            items(mockCourses) { course ->
-                CourseCard(
-                    course = course,
-                    onEdit = { /* TODO */ },
-                    onDelete = { /* TODO */ }
-                )
+        if (uiState.isLoading) {
+            CircularProgressIndicator(modifier = Modifier.padding(16.dp))
+        } else if (uiState.error != null) {
+            Text("Error: ${uiState.error}", modifier = Modifier.padding(16.dp), color = MaterialTheme.colorScheme.error)
+        } else {
+            LazyColumn(contentPadding = innerPadding) {
+                items(uiState.courses) { course ->
+                    CourseCard(
+                        course = course,
+                        onViewStudents = {
+                            navController.navigate("students/${course.id}")
+                        },
+                        onMoreOptions = { /* Acción para más opciones */ }
+                    )
+                }
             }
         }
     }
