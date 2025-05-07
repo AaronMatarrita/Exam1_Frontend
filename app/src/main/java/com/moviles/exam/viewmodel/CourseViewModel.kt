@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.moviles.exam.models.Course
+import com.moviles.exam.models.Student
 import com.moviles.exam.network.RetrofitInstance
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -35,6 +36,10 @@ class CourseViewModel : ViewModel() {
                 _uiState.value = _uiState.value.copy(isLoading = false, error = e.message)
             }
         }
+    }
+
+    fun getStudentsForCourse(courseId: Int): List<Student> {
+        return _uiState.value.courses.firstOrNull { it.id == courseId }?.students ?: emptyList()
     }
 
     fun clearError() {

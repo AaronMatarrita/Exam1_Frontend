@@ -2,7 +2,7 @@
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
         <!-- Dirección IP servidor -->
-        <domain includeSubdomains="true">192.168.1.145</domain>
+        <domain includeSubdomains="true">192.168.1.116</domain>
         <!-- Opcionales para pruebas locales -->
         <domain includeSubdomains="true">localhost</domain>
         <domain includeSubdomains="true">10.0.2.2</domain>
