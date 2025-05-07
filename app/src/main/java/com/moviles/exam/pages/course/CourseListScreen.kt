@@ -11,10 +11,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.moviles.exam.viewmodel.CourseViewModel
 
 @Composable
 fun CourseListScreen(
+    navController: NavHostController,
     modifier: Modifier = Modifier,
     courseViewModel: CourseViewModel = viewModel()
 ) {
@@ -37,7 +39,9 @@ fun CourseListScreen(
                 items(uiState.courses) { course ->
                     CourseCard(
                         course = course,
-                        onViewStudents = { /* Acción de ver estudiantes */ },
+                        onViewStudents = {
+                            navController.navigate("students/${course.id}")
+                        },
                         onMoreOptions = { /* Acción para más opciones */ }
                     )
                 }

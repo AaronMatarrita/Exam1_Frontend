@@ -12,11 +12,13 @@ navigationCompose = "2.8.9"
 composeMaterial3 = "1.2.1"
 benchmarkMacro = "1.3.4"
 coilCompose = "2.5.0"
+navigationComposeVersion = "2.7.5"
 retrofit = "2.9.0"
 converterGson = "2.9.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-navigation-compose-v275 = { module = "androidx.navigation:navigation-compose", version.ref = "navigationComposeVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
