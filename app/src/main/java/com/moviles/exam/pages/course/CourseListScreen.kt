@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.moviles.exam.components.CourseFormDialog
 import com.moviles.exam.viewmodel.CourseViewModel
 
 @Composable
@@ -21,10 +22,11 @@ fun CourseListScreen(
     courseViewModel: CourseViewModel = viewModel()
 ) {
     val uiState by courseViewModel.uiState.collectAsState()
+    var showDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(onClick = { /* TODO: Navegar a formulario */ }) {
+            FloatingActionButton(onClick = { showDialog = true }) {
                 Icon(Icons.Default.Add, contentDescription = "Crear curso")
             }
         },
@@ -46,6 +48,15 @@ fun CourseListScreen(
                     )
                 }
             }
+        }
+
+        if (showDialog) {
+            CourseFormDialog(
+                onDismiss = { showDialog = false },
+                onSubmit = { input, imageUri ->
+                    showDialog = false
+                }
+            )
         }
     }
 }

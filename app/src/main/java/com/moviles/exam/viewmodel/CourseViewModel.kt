@@ -9,6 +9,8 @@ import com.moviles.exam.network.RetrofitInstance
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 data class CourseUiState(
     val isLoading: Boolean = false,
@@ -40,6 +42,30 @@ class CourseViewModel : ViewModel() {
 
     fun getStudentsForCourse(courseId: Int): List<Student> {
         return _uiState.value.courses.firstOrNull { it.id == courseId }?.students ?: emptyList()
+    }
+
+    fun submitCourse(
+        file: MultipartBody.Part,
+        fields: Map<String, @JvmSuppressWildcards RequestBody>,
+        isEdit: Boolean,
+        courseId: Int? = null,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        viewModelScope.launch {
+            try {
+                if (isEdit && courseId != null) {
+                    RetrofitInstance.courseApi.updateCourse(courseId, fields, file)
+                } else {
+                    RetrofitInstance.courseApi.createCourse(fields, file)
+                }
+                fetchCourses()
+                onSuccess()
+            } catch (e: Exception) {
+                Log.e("CourseViewModel", "Error submitting course: ${e.message}")
+                onError(e.message ?: "Error desconocido")
+            }
+        }
     }
 
     fun clearError() {
