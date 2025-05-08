@@ -40,7 +40,7 @@ fun CourseListScreen(
                     CourseCard(
                         course = course,
                         onViewStudents = {
-                            navController.navigate("students/${course.id}")
+                            navController.navigate("students/${course.id}/${course.name}")
                         },
                         onMoreOptions = { /* Acción para más opciones */ }
                     )

@@ -1,7 +1,6 @@
 package com.moviles.exam.components
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -20,18 +19,25 @@ fun StudentFormDialog(
     var email by remember { mutableStateOf(existingStudent?.email ?: "") }
     var phone by remember { mutableStateOf(existingStudent?.phone ?: "") }
 
+    var errorMessage by remember { mutableStateOf<String?>(null) }
+
     AlertDialog(
         onDismissRequest = onDismiss,
         confirmButton = {
             Button(onClick = {
-                onSubmit(
-                    StudentInputState(
-                        name = name,
-                        email = email,
-                        phone = phone,
-                        courseId = courseId
+                if (name.isBlank() || email.isBlank() || phone.isBlank()) {
+                    errorMessage = "Todos los campos son obligatorios"
+                } else {
+                    errorMessage = null
+                    onSubmit(
+                        StudentInputState(
+                            name = name,
+                            email = email,
+                            phone = phone,
+                            courseId = courseId
+                        )
                     )
-                )
+                }
             }) {
                 Text("Guardar")
             }
@@ -48,37 +54,38 @@ fun StudentFormDialog(
             )
         },
         text = {
-            LazyColumn(
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .heightIn(max = 400.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                item {
-                    OutlinedTextField(
-                        value = name,
-                        onValueChange = { name = it },
-                        label = { Text("Nombre") },
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
+                OutlinedTextField(
+                    value = name,
+                    onValueChange = { name = it },
+                    label = { Text("Nombre") },
+                    modifier = Modifier.fillMaxWidth()
+                )
 
-                item {
-                    OutlinedTextField(
-                        value = email,
-                        onValueChange = { email = it },
-                        label = { Text("Email") },
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
+                OutlinedTextField(
+                    value = email,
+                    onValueChange = { email = it },
+                    label = { Text("Email") },
+                    modifier = Modifier.fillMaxWidth()
+                )
 
-                item {
-                    OutlinedTextField(
-                        value = phone,
-                        onValueChange = { phone = it },
-                        label = { Text("Teléfono") },
-                        modifier = Modifier.fillMaxWidth()
+                OutlinedTextField(
+                    value = phone,
+                    onValueChange = { phone = it },
+                    label = { Text("Teléfono") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                if (errorMessage != null) {
+                    Text(
+                        text = errorMessage ?: "",
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodySmall
                     )
                 }
             }

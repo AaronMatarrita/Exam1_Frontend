@@ -5,6 +5,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -33,7 +34,8 @@ fun StudentCard(
     student: Student,
     onEdit: () -> Unit,
     onDelete: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
 ) {
     val colors = MaterialTheme.colorScheme
     var isHovered by remember { mutableStateOf(false) }
@@ -53,14 +55,14 @@ fun StudentCard(
         modifier = modifier
             .padding(8.dp)
             .fillMaxWidth()
+            .clickable { onClick() }
             .semantics {
                 contentDescription = "Tarjeta del estudiante ${student.name}"
             },
         shape = RoundedCornerShape(16.dp),
         border = BorderStroke(1.dp, colors.outlineVariant),
         colors = CardDefaults.cardColors(containerColor = backgroundColor),
-        elevation = CardDefaults.cardElevation(defaultElevation = elevation.dp),
-        onClick = { isHovered = !isHovered }
+        elevation = CardDefaults.cardElevation(defaultElevation = elevation.dp)
     ) {
         Row(
             modifier = Modifier.padding(16.dp),

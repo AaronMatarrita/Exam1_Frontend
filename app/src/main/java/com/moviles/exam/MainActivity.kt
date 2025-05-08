@@ -12,6 +12,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import androidx.navigation.navArgument
 import com.moviles.exam.pages.course.CourseListScreen
+import com.moviles.exam.pages.students.StudentDetailScreen
 import com.moviles.exam.pages.students.StudentListScreen
 import com.moviles.exam.ui.theme.Examen1_FrontendTheme
 
@@ -44,17 +45,34 @@ fun AppNavigator() {
             }
         }
         composable(
-            "students/{courseId}",
-            arguments = listOf(navArgument("courseId") { type = NavType.IntType })
+            "students/{courseId}/{courseName}",
+            arguments = listOf(
+                navArgument("courseId") { type = NavType.IntType },
+                navArgument("courseName") { type = NavType.StringType }
+            )
         ) { backStackEntry ->
             val courseId = backStackEntry.arguments?.getInt("courseId") ?: 0
+            val courseName = backStackEntry.arguments?.getString("courseName") ?: ""
             Scaffold { padding ->
                 StudentListScreen(
                     courseId = courseId,
+                    courseName = courseName,
                     modifier = Modifier.padding(padding),
                     navController = navController,
                 )
             }
+        }
+        composable(
+            "studentDetail/{studentId}/{courseName}",
+            arguments = listOf(
+                navArgument("studentId") { type = NavType.IntType },
+                navArgument("courseName") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val studentId = backStackEntry.arguments?.getInt("studentId") ?: -1
+            val courseName = backStackEntry.arguments?.getString("courseName") ?: "Desconocido"
+
+            StudentDetailScreen(studentId = studentId, courseName = courseName)
         }
     }
 }
