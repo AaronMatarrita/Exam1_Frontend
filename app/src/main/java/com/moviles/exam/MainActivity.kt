@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+//import com.moviles.exam.components.AppNavigation
 import com.moviles.exam.pages.course.CourseListScreen
 import com.moviles.exam.ui.theme.Examen1_FrontendTheme
 
@@ -19,6 +20,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold { padding ->
                     CourseListScreen(modifier = Modifier.padding(padding))
                 }
+                //AppNavigation()
             }
         }
     }

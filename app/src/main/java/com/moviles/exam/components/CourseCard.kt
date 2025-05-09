@@ -2,18 +2,25 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.FlowColumnScopeInstance.align
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.PopupProperties
 import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import com.moviles.exam.common.Constants.IMAGES_BASE_URL
@@ -23,9 +30,14 @@ import com.moviles.exam.models.Course
 fun CourseCard(
     course: Course,
     onViewStudents: () -> Unit,
-    onMoreOptions: () -> Unit
+    onEdit: () -> Unit,       // Nueva función para editar
+    onDelete: () -> Unit
 ) {
     val colors = MaterialTheme.colorScheme
+    val context = LocalContext.current
+
+    var showDialog by remember { mutableStateOf(false) }
+
     Card(
         modifier = Modifier
             .padding(8.dp)
@@ -69,11 +81,34 @@ fun CourseCard(
                         )
                     }
 
-                    IconButton(onClick = onMoreOptions) {
+                    IconButton(
+                        onClick = {showDialog = true},
+                        modifier = Modifier.align(Alignment.Top)
+                    ) {
                         Icon(
                             imageVector = Icons.Default.MoreVert,
                             contentDescription = "Más opciones",
                             tint = colors.onSurfaceVariant
+                        )
+                    }
+                    // DropMenu
+                    DropdownMenu(
+                        expanded = showDialog,
+                        onDismissRequest = { showDialog = false }
+                    ) {
+                        DropdownMenuItem(
+                            text = { Text("Editar Curso") },
+                            onClick = {
+                                onEdit()
+                                showDialog = false
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = { Text("Eliminar Curso") },
+                            onClick = {
+                                onDelete()
+                                showDialog = false
+                            }
                         )
                     }
                 }
