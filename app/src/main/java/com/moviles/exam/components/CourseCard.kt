@@ -2,6 +2,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.*
@@ -138,7 +139,7 @@ fun CourseCard(
                     ) {
                         Text("Ver estudiantes")
                         Spacer(modifier = Modifier.width(4.dp))
-                        Icon(Icons.Default.List, null, modifier = Modifier.size(16.dp))
+                        Icon(Icons.AutoMirrored.Filled.List, null, modifier = Modifier.size(16.dp))
                     }
                 }
             }

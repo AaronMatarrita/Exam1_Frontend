@@ -17,6 +17,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import androidx.navigation.navArgument
 import com.google.firebase.messaging.FirebaseMessaging
+import com.moviles.exam.network.RetrofitInstance
 import com.moviles.exam.pages.course.CourseListScreen
 import com.moviles.exam.pages.students.StudentDetailScreen
 import com.moviles.exam.pages.students.StudentListScreen
@@ -28,6 +29,7 @@ class MainActivity : ComponentActivity() {
         createNotificationChannel(this)
         subscribeToTopic()
         enableEdgeToEdge()
+        RetrofitInstance.initCache(applicationContext)
         setContent {
             Examen1_FrontendTheme {
                 AppNavigator()
