@@ -1,6 +1,6 @@
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.FlowColumnScopeInstance.align
+//import androidx.compose.foundation.layout.FlowColumnScopeInstance.align
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -26,7 +26,7 @@ import com.moviles.exam.models.Course
 fun CourseCard(
     course: Course,
     onViewStudents: () -> Unit,
-    onEdit: () -> Unit,       // Nueva función para editar
+    onEdit: () -> Unit,       // Edit Function
     onDelete: () -> Unit
 ) {
     val colors = MaterialTheme.colorScheme
