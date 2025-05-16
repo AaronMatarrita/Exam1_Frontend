@@ -67,8 +67,9 @@ fun CourseListScreen(
                 items(uiState.courses) { course ->
                     CourseCard(
                         course = course,
-                        onViewStudents = { /* Acción de ver estudiantes */ },
-                        //onMoreOptions = { /* Acción para más opciones */ }
+                        onViewStudents = {
+                            navController.navigate("students/${course.id}/${course.name}")
+                        },
                         onEdit = {
                             selectedCourse = course
                             showEditDialog = true
