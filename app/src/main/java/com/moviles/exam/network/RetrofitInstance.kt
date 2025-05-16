@@ -11,6 +11,10 @@ object RetrofitInstance {
         retrofit.create(CourseApi::class.java)
     }
 
+    val studentApi: StudentApi by lazy {
+        retrofit.create(StudentApi::class.java)
+    }
+
     // Retrofit base
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()

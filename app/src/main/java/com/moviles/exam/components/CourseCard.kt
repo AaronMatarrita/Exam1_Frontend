@@ -1,6 +1,4 @@
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.FlowColumnScopeInstance.align
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,14 +13,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
 import coil.compose.AsyncImage
-import coil.compose.rememberAsyncImagePainter
 import com.moviles.exam.common.Constants.IMAGES_BASE_URL
 import com.moviles.exam.models.Course
 

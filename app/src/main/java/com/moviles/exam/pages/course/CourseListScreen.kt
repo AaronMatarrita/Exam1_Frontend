@@ -28,7 +28,7 @@ import com.moviles.exam.viewmodel.CourseViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CourseListScreen(
-    //navController: NavController,
+    navController: NavHostController,
     modifier: Modifier = Modifier,
     courseViewModel: CourseViewModel = viewModel()
 ) {
