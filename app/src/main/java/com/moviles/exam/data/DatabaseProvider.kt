@@ -13,6 +13,7 @@ object DatabaseProvider {
                 AppDatabase::class.java,
                 "ExamDB"
             )
+                .fallbackToDestructiveMigration()
                 .build()
         }
         return db!!

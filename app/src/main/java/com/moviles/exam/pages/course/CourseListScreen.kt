@@ -83,6 +83,41 @@ fun CourseListScreen(
             }
         }
 
+        if (showDialog) {
+            AlertDialog(
+                onDismissRequest = { showDialog = false },
+                title = {
+                    Text(
+                        "Nuevo Curso",
+                        style = MaterialTheme.typography.headlineSmall
+                    )
+                },
+                text = {
+                    CourseFormContent(
+                        initialCourse = Course(
+                            id = 0,
+                            name = "",
+                            description = "",
+                            schedule = "",
+                            professor = "",
+                            imageUrl = ""
+                        ), // Empty Course by new Register
+                        courseViewModel = courseViewModel,
+                        onDismiss = { showDialog = false },
+                        onSave = { newCourse ->
+                            courseViewModel.createCourse(newCourse)
+                            showDialog = false
+                        },
+                        isEditing = false
+                    )
+                },
+                confirmButton = {},
+                dismissButton = {},
+                shape = RoundedCornerShape(12.dp),
+                containerColor = MaterialTheme.colorScheme.surface
+            )
+        }
+
         if (showEditDialog && selectedCourse != null) {
             AlertDialog(
 
